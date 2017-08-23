@@ -1,0 +1,9 @@
+---
+
+- name: test ansible playbook
+  hosts: test_group
+  remote_user: root
+  # gather_facts: no
+
+  roles:
+    - ansible_change_hostname
