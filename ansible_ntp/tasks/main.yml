@@ -1,0 +1,57 @@
+---
+# ntp server setup playbook
+
+- name: set timezone to Asia/Shanghai
+  timezone:
+    name: Asia/Shanghai
+
+- name: Install NTP pkg on Ubuntu and Debian
+  apt: name=ntp state=present update_cache=yes
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+
+- name: configure ntp on Ubuntu
+  template:
+    src=ubuntu_ntp.conf.j2
+    dest=/etc/ntp.conf
+    mode=0644
+    owner=root
+    group=root
+  when: ansible_distribution == 'Ubuntu'
+  notify:
+    restart ntp
+
+- name: configure ntp on Debian
+  template:
+    src=debian_ntp.conf.j2
+    dest=/etc/ntp.conf
+    mode=0644
+    owner=root
+    group=root
+  when: ansible_distribution == 'Debian'
+  notify:
+    restart ntp
+
+- name: Install NTP pkg on CentOS
+#  yum: name=ntp state=present update_cache=yes
+# use yum module cause error: "ImportError: No module named yum"
+# so try to use command
+# libselinux-python must be installed otherwise be error cause
+  command: yum -y install ntp libselinux-python
+  when: ansible_distribution == 'CentOS'
+
+- name: configure ntp on CentOS
+  template:
+    src=centos_ntp.conf.j2
+    dest=/etc/ntp.conf
+    mode=0644
+    owner=root
+    group=root
+  when: ansible_distribution == 'CentOS'
+  notify:
+    restart ntpd
+
+- name: ensure time synced
+  command: ntpq -p
+  register: ntpq_result
+
+- debug: var=ntpq_result.stdout_lines

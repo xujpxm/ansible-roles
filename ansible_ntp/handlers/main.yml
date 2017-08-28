@@ -1,0 +1,7 @@
+---
+# Debian and Ubuntu restart ntp service
+- name: restart ntp
+  service: name=ntp state=restarted
+# CentOS restart ntpd service
+- name: restart ntpd
+  service: name=ntpd state=restarted
