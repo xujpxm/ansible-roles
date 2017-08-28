@@ -16,7 +16,7 @@
 - name: copy node_exporter package into your install path
   copy:
     src: node_exporter-0.14.0.linux-amd64.tar.gz
-    dest: "{{ prometheus_install_path }}" 
+    dest: "{{ prometheus_install_path }}"
 
 - name: unzip node_exporter package
   shell: cd "{{ prometheus_install_path }}" && tar -zxf "node_exporter-{{ prometheus_node_exporter_version }}.linux-amd64.tar.gz"
@@ -40,3 +40,8 @@
   supervisorctl:
     name: node_exporter
     state: restarted
+
+- name: delete node_exporter package
+  file: 
+    path: "{{ prometheus_install_path }}/node_exporter-{{ prometheus_node_exporter_version }}.linux-amd64.tar.gz"
+    state: absent
