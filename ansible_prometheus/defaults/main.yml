@@ -1,0 +1,7 @@
+---
+
+prometheus_install_path: /data/prometheus
+prometheus_node_exporter_version: 0.14.0
+
+node_exporter_download_url: "https://github.com/prometheus/node_exporter/releases/download/v{{ prometheus_node_exporter_version }}/node_exporter-{{ prometheus_node_exporter_version }}.linux-amd64.tar.gz"
+node_exporter_path: "{{ prometheus_install_path }}/node_exporter-{{ prometheus_node_exporter_version }}.linux-amd64"

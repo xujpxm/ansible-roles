@@ -1,0 +1,36 @@
+---
+
+- name: create node_exporter install path
+  file:
+    path: "{{ prometheus_install_path }}"
+    mode: 0755
+    state: directory
+
+- name: download node_exporter into install path
+  get_url:
+    url: "{{ node_exporter_download_url }}"
+    dest: "{{ prometheus_install_path }}"
+    checksum: sha256:d5980bf5d0dc7214741b65d3771f08e6f8311c86531ae21c6ffec1d643549b2e
+
+- name: unzip node_exporter package
+  shell: cd "{{ prometheus_install_path }}" && tar -zxf "node_exporter-{{ prometheus_node_exporter_version }}.linux-amd64.tar.gz"
+
+- name: copy node_exporter conf file to supervisord
+  template:
+    src: node_exporter.conf
+    dest: /etc/supervisor/conf.d/
+    owner: root
+    mode: 0644
+
+# When state = present, the module will call supervisorctl reread then supervisorctl add if the program/group does not exist.
+# When state = restarted, the module will call supervisorctl update then call supervisorctl restart.
+
+- name: supervisor reread node_exporter
+  supervisorctl:
+    name: node_exporter
+    state: present
+
+- name: supervisor update and restart node_exporter
+  supervisorctl:
+    name: node_exporter
+    state: restarted
