@@ -36,6 +36,7 @@ ENV/
 
 # ansible ymal tmp 
 *.retry
+hosts
 
 # Django stuff
 *.log
