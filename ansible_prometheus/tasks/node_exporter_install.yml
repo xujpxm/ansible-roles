@@ -6,11 +6,17 @@
     mode: 0755
     state: directory
 
-- name: download node_exporter into install path
-  get_url:
-    url: "{{ node_exporter_download_url }}"
-    dest: "{{ prometheus_install_path }}"
-    checksum: sha256:d5980bf5d0dc7214741b65d3771f08e6f8311c86531ae21c6ffec1d643549b2e
+#- name: download node_exporter into install path
+#  get_url:
+#    url: "{{ node_exporter_download_url }}"
+#    dest: "{{ prometheus_install_path }}"
+#    checksum: sha256:d5980bf5d0dc7214741b65d3771f08e6f8311c86531ae21c6ffec1d643549b2e
+
+# If you env can't out of internet use copy module, otherwise use the above task.
+- name: copy node_exporter package into your install path
+  copy:
+    src: node_exporter-0.14.0.linux-amd64.tar.gz
+    dest: "{{ prometheus_install_path }}" 
 
 - name: unzip node_exporter package
   shell: cd "{{ prometheus_install_path }}" && tar -zxf "node_exporter-{{ prometheus_node_exporter_version }}.linux-amd64.tar.gz"
