@@ -1,0 +1,7 @@
+---
+
+- name: Install supervisor on Debian/Ubuntu
+  apt:
+    name: supervisor
+    state: present
+  when: ansible_os_family == 'Debian'
