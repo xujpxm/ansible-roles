@@ -9,7 +9,7 @@
 - name: download prometheus package into install path
   get_url:
     url: "{{ prometheus_download_url }}"
-    dest: "{{ prometheus_install_path }}/prometheus-{{ prometheus_version }}.tar.gz"
+    dest: "{{ prometheus_install_path }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
     checksum: sha256:4779d5cf08c50ed368a57b102ab3895e5e830d6b355ca4bfecf718a034a164e0
 
 # If you env can't out of internet use copy module, otherwise use the above task.
@@ -19,7 +19,7 @@
 #    dest: "{{ prometheus_install_path }}"
 
 - name: unzip node_exporter package
-  shell: cd "{{ prometheus_install_path }}" && tar -zxf "prometheus-{{ prometheus_version }}.tar.gz"
+  shell: cd "{{ prometheus_install_path }}" && tar -zxf "prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
 
 - name: copy prometheus server start config file
   template:
