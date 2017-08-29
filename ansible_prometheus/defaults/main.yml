@@ -11,4 +11,4 @@ alertmanager_download_url: https://github.com/prometheus/alertmanager/releases/d
 
 node_exporter_path: "{{ prometheus_install_path }}/node_exporter-{{ prometheus_node_exporter_version }}.linux-amd64"
 prometheus_server_path: "{{ prometheus_install_path }}/prometheus-{{ prometheus_version }}.linux-amd64"
-alertmanger_path: "{{ prometheus_install_path }}/alertmanger-{{ prometheus_alertmanager_version }}.linux-amd64"
+alertmanager_path: "{{ prometheus_install_path }}/alertmanger-{{ prometheus_alertmanager_version }}.linux-amd64"
