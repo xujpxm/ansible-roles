@@ -35,7 +35,7 @@
     mode: 0644
 
 - name: copy alert.rules
-  template:
+  copy:
     src: alert.rules
     dest: "{{ prometheus_server_path }}"
     mode: 0644
@@ -55,5 +55,5 @@
 
 - name: delete prometheus package
   file:
-    path: "{{ prometheus_install_path }}/prometheus-{{ prometheus_version }}.tar.gz"
+    path: "{{ prometheus_install_path }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
     state: absent
