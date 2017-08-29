@@ -23,7 +23,7 @@
 
 - name: copy node_exporter conf file to supervisord
   template:
-    src: node_exporter.conf
+    src: node_exporter_supervisor.conf
     dest: /etc/supervisor/conf.d/
     owner: root
     mode: 0644
@@ -42,6 +42,6 @@
     state: restarted
 
 - name: delete node_exporter package
-  file: 
+  file:
     path: "{{ prometheus_install_path }}/node_exporter-{{ prometheus_node_exporter_version }}.linux-amd64.tar.gz"
     state: absent

@@ -7,5 +7,6 @@
 
   roles:
 #    - ansible_change_hostname
-    - ansible_supervisord
+#    - ansible_supervisord
     - ansible_prometheus
+#    - ansible_ntp

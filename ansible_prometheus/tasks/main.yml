@@ -2,3 +2,4 @@
 
 - name: setup node_exporter
   include: node_exporter_install.yml
+  include: prometheus.yml
