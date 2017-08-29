@@ -3,8 +3,12 @@
 prometheus_install_path: /data/prometheus
 prometheus_version: 1.7.1
 prometheus_node_exporter_version: 0.14.0
+prometheus_alertmanager_version: 0.8.0
 
 node_exporter_download_url: https://github.com/prometheus/node_exporter/releases/download/v{{ prometheus_node_exporter_version }}/node_exporter-{{ prometheus_node_exporter_version }}.linux-amd64.tar.gz
 prometheus_download_url: https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz
+alertmanager_download_url: https://github.com/prometheus/alertmanager/releases/download/v{{ prometheus_alertmanager_version }}/alertmanager-{{ prometheus_alertmanager_version }}.linux-amd64.tar.gz
+
 node_exporter_path: "{{ prometheus_install_path }}/node_exporter-{{ prometheus_node_exporter_version }}.linux-amd64"
 prometheus_server_path: "{{ prometheus_install_path }}/prometheus-{{ prometheus_version }}.linux-amd64"
+alertmanger_path: "{{ prometheus_install_path }}/alertmanger-{{ prometheus_alertmanager_version }}.linux-amd64"

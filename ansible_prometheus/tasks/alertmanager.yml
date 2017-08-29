@@ -1,0 +1,54 @@
+---
+
+- name: create alertmanager install path
+  file:
+    path: "{{ prometheus_install_path }}"
+    mode: 0755
+    state: directory
+
+- name: download alertmanager into install path
+  get_url:
+    url: "{{ alertmanager_download_url }}"
+    dest: "{{ prometheus_install_path }}"
+    checksum: sha256:b569ae0d31e5df59391124578bcf9b28316cf12adb4cc9d10f439fc3ab3422f1
+
+## If you env can't out of internet use copy module, otherwise use the above task.
+#- name: copy alertmanager package into your install path
+#  copy:
+#    src: alertmanager-0.14.0.linux-amd64.tar.gz
+#    dest: "{{ prometheus_install_path }}"
+
+- name: unzip alertmanager package
+  shell: cd "{{ prometheus_install_path }}" && tar -zxf "alertmanager-{{ prometheus_alertmanager_version }}.linux-amd64.tar.gz"
+
+- name: copy alermanager config file
+  template:
+    src: alertmanager.yml
+    dest: "{{ alertmanger_path }}"
+    mode: 0644
+    owner: root
+
+- name: copy supervisor alertmanager conf file
+  template:
+    src: alertmanager_supervisor.conf
+    dest: /etc/supervisor/conf.d/
+    owner: root
+    mode: 0644
+
+# When state = present, the module will call supervisorctl reread then supervisorctl add if the program/group does not exist.
+# When state = restarted, the module will call supervisorctl update then call supervisorctl restart.
+
+- name: supervisor reread alertmanager
+  supervisorctl:
+    name: alertmanager
+    state: present
+
+- name: supervisor update and restart alertmanager
+  supervisorctl:
+    name: alertmanager
+    state: restarted
+
+- name: delete alertmanager package
+  file:
+    path: "{{ prometheus_install_path }}/alertmanager-{{ prometheus_alertmanager_version }}.linux-amd64.tar.gz"
+    state: absent
