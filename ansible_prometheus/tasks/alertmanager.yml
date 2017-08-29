@@ -24,7 +24,7 @@
 - name: copy alermanager config file
   template:
     src: alertmanager.yml
-    dest: "{{ alertmanger_path }}"
+    dest: "{{ alertmanager_path }}"
     mode: 0644
     owner: root
 
