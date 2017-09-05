@@ -12,6 +12,7 @@
     }
   },
   "log_level": "INFO",
+  "enable_syslog": true,
   "ports": {
     "http": 8500,
     "dns": 8600,
