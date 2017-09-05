@@ -16,7 +16,7 @@
   get_url:
     url: "{{ consul_download_url }}"
     dest: "{{ consul_install_dir }}"
-    checksum: "{{ consul_sha256sum }}"
+    checksum: sha256:"{{ consul_sha256sum }}"
   
 - name: Unarchive Consul Pacakge
   unarchive:
