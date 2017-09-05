@@ -3,7 +3,7 @@
 consul_version: 0.9.2
 # for linux platform and AMD 64
 consul_download_url: https://releases.hashicorp.com/consul/{{ consul_version }}/consul_{{ consul_version }}_linux_amd64.zip
-consul_install_dir: /data/consul/
+consul_install_dir: /data/consul
 consul_sha256sum: 0a2921fc7ca7e4702ef659996476310879e50aeeecb5a205adfdbe7bd8524013
 
 # consul start args

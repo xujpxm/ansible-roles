@@ -11,7 +11,7 @@
     path: "{{ consul_install_dir }}/data"
     state: directory
     mode: 0755
-  
+# download package form internet
 - name: Download Consul Package
   get_url:
     url: "{{ consul_download_url }}"
@@ -19,15 +19,29 @@
     checksum: sha256:"{{ consul_sha256sum }}"
 
 # You can use local consul package by uncomment this task
-#- name: Upload Consul Package from local
+#- name: Upload Consul Package from local disk
 #  copy:
 #    src: consul_{{ consul_version }}_linux_amd64.zip
 #    dest: "{{ consul_install_dir }}"
+- name: Install unzip package befor unarchive Consul Package
+  apt:
+    name: unzip
+    state: present
+    update_cache: yes
+    when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+
+- name: Install unzip package befor unarchive Consul Package
+  yum:
+    name: unzip
+    state: present
+    update_cache: yes
+    when: ansible_distribution == 'CentOS'
   
 - name: Unarchive Consul Pacakge
   unarchive:
     src: "{{ consul_install_dir }}/consul_{{ consul_version }}_linux_amd64.zip"
     dest: "{{ consul_install_dir }}"
+    remote_src: true
 
 - name: Create consul config file
   template:
