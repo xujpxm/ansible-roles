@@ -28,7 +28,7 @@
     name: unzip
     state: present
     update_cache: yes
-    when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
 
 - name: Install unzip package befor unarchive Consul Package
   yum:

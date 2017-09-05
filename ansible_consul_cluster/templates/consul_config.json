@@ -1,8 +1,8 @@
 {
   "datacenter": "{{ consul_datacenter_name }}",
-  "node_name": "{{ inventory_hostname }",
+  "node_name": "{{ inventory_hostname }}",
   "bind_addr": "{{ ansible_host }}",
-  "client_addr": "{{ ansible_host }",
+  "client_addr": "{{ ansible_host }}",
   "server": true,
   "bootstrap_expect": 5,
   "data_dir": "{{ consul_install_dir }}/data",
