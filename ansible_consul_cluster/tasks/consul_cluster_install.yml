@@ -35,7 +35,7 @@
     name: unzip
     state: present
     update_cache: yes
-    when: ansible_distribution == 'CentOS'
+  when: ansible_distribution == 'CentOS'
   
 - name: Unarchive Consul Pacakge
   unarchive:
@@ -66,3 +66,7 @@
   supervisorctl:
     name: consul
     state: restarted
+# join the consul server cluster 
+- name: Consul join cluster
+  shell: "{{ consul_install_dir}}/consul join -http-addr http://{{ ansible_host }}:8500 {{ consul_join_addr }}"
+    

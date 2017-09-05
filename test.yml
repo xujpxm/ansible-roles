@@ -1,12 +1,13 @@
 ---
 
 - name: test ansible playbook
-  hosts: test_group
+  hosts: consul_group
   remote_user: root
   # gather_facts: no
 
   roles:
 #    - ansible_change_hostname
 #    - ansible_supervisord
-    - ansible_prometheus
+#    - ansible_prometheus
 #    - ansible_ntp
+    - ansible_consul_cluster

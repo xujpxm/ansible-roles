@@ -9,5 +9,5 @@ consul_sha256sum: 0a2921fc7ca7e4702ef659996476310879e50aeeecb5a205adfdbe7bd85240
 # consul start args
 # datacenter name
 consul_datacenter_name: "ops-cn"
-# retry_join address, can be any of consul agent address
-consul_retry_join_addr: "172.30.100.45:8301"
+# consul agent join address to join a cluster
+consul_join_addr: "172.30.100.45"

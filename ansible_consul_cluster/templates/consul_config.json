@@ -18,8 +18,5 @@
     "serf_lan": 8301,
     "serf_wan": 8302
   },
-  "retry_join": [
-    "{{ consul_retry_join_addr }}"
-  ],
   "enable_script_checks": true
 }
