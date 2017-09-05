@@ -1,0 +1,25 @@
+{
+  "datacenter": "{{ consul_datacenter_name }}",
+  "node_name": "{{ inventory_hostname }",
+  "bind_addr": "{{ ansible_host }}",
+  "client_addr": "{{ ansible_host }",
+  "server": true,
+  "bootstrap_expect": 5,
+  "data_dir": "{{ consul_install_dir }}/data",
+  "http_config": {
+    "response_headers": {
+      "Access-Control-Allow-Origin": "*"
+    }
+  },
+  "log_level": "INFO",
+  "ports": {
+    "http": 8500,
+    "dns": 8600,
+    "serf_lan": 8301,
+    "serf_wan": 8302
+  },
+  "retry_join": [
+    "{{ consul_retry_join_addr }}"
+  ],
+  "enable_script_checks": true
+}

@@ -1,0 +1,48 @@
+---
+
+- name: Create Consul Dir
+  file:
+    path: "{{ consul_install_dir }}"
+    state: directory
+    mode: 0755
+
+- name: Create Consul Data Dir
+  file:
+    path: "{{ consul_install_dir }}/data"
+    state: directory
+    mode: 0755
+  
+- name: Download Consul Package
+  get_url:
+    url: "{{ consul_download_url }}"
+    dest: "{{ consul_install_dir }}"
+    checksum: "{{ consul_sha256sum }}"
+  
+- name: Unarchive Consul Pacakge
+  unarchive:
+    src: "{{ consul_install_dir }}/consul_{{ consul_version }}_linux_amd64.zip"
+    dest: "{{ consul_install_dir }}"
+
+- name: Create consul config file
+  template:
+    src: consul_config.json
+    dest: "{{ consul_install_dir }}"
+    owner: root
+    mode: 0644
+
+- name: Create Supervisor Conf For Consul
+  template: 
+    src: consul_supervisor.conf
+    dest: /etc/supervisor/conf.d/
+    owner: root
+    mode: 0644
+
+- name: Supervisor reread for consul agent
+  supervisorctl:
+    name: consul
+    state: present
+
+- name: Supervisor update and restart consul agent
+  supervisorctl:
+    name: consul
+    state: restarted

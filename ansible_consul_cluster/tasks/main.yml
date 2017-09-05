@@ -1,0 +1,4 @@
+---
+
+- name: Consul Cluster Setup
+  include: consul_cluster_install.yml
