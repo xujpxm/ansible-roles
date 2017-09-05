@@ -17,6 +17,12 @@
     url: "{{ consul_download_url }}"
     dest: "{{ consul_install_dir }}"
     checksum: sha256:"{{ consul_sha256sum }}"
+
+# You can use local consul package by uncomment this task
+#- name: Upload Consul Package from local
+#  copy:
+#    src: consul_{{ consul_version }}_linux_amd64.zip
+#    dest: "{{ consul_install_dir }}"
   
 - name: Unarchive Consul Pacakge
   unarchive:
