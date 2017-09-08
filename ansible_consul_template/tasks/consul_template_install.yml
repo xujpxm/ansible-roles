@@ -39,7 +39,7 @@
 
 - name: Unarchive consul-template Pacakge
   unarchive:
-    src: "{{ consul_template_install_dir }}/consul-template_{{ consul_version }}_linux_amd64.zip"
+    src: "{{ consul_template_install_dir }}/consul-template_{{ consul_template_version }}_linux_amd64.zip"
     dest: "{{ consul_template_install_dir }}"
     remote_src: true
 
