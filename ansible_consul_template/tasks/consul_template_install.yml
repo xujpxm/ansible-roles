@@ -74,7 +74,7 @@
 
 - name: Create Supervisor Conf For consul-template
   template:
-    src: consul_supervisor.conf
+    src: consul-template_supervisor.conf
     dest: /etc/supervisor/conf.d/
     owner: root
     mode: 0644
