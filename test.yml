@@ -1,7 +1,7 @@
 ---
 
 - name: test ansible playbook
-  hosts: consul_group
+  hosts: ctmpl_group
   remote_user: root
   # gather_facts: no
 
