@@ -72,19 +72,19 @@
     owner: root
     mode: 0644
 
-- name: Create Supervisor Conf For Consul
+- name: Create Supervisor Conf For consul-template
   template:
     src: consul_supervisor.conf
     dest: /etc/supervisor/conf.d/
     owner: root
     mode: 0644
 
-- name: Supervisor reread for consul agent
+- name: Supervisor reread for consul-template agent
   supervisorctl:
-    name: consul
+    name: consul-template
     state: present
 
 - name: Supervisor update and restart consul agent
   supervisorctl:
-    name: consul
+    name: consul-template
     state: restarted
