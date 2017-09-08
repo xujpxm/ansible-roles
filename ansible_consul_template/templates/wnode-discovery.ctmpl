@@ -1,5 +1,5 @@
 [
-{$ range tree "prometheus/linux" $}
+{$ range tree "prometheus/windows" $}
   {
     "targets": ["{$ .Key $}"],
     "labels": {
