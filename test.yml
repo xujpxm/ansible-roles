@@ -10,4 +10,5 @@
 #    - ansible_supervisord
 #    - ansible_prometheus
 #    - ansible_ntp
-    - ansible_consul_cluster
+#    - ansible_consul_cluster
+    - ansible_consul_template
