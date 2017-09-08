@@ -1,9 +1,9 @@
 [
 {$ range tree "prometheus/linux" $}
   {
-    "targets": ["{$ .Key $}"],
+    "targets": ["{$ .Value $}"],
     "labels": {
-      "hostname": "{$ .Value $}"
+      "hostname": "{$ .Key $}"
      }
 },
 {$ end $}
