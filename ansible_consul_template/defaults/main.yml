@@ -10,11 +10,11 @@ consul_sha256sum: c4bf073081a99030f45a446a11b8e9f8a4b56270b096d90b51e48f6e4416ff
 consul_agent_address: "172.30.100.45:8500"
 # consul-template template block "source"
 # all templates fils is in the templates dir and the template file name must be the same as the file included by the ansible templates dir
-source_template1: {{ consul_template_install_dir }}/templates/lnode-discorvery.ctmpl"
-source_template2: {{ consul_template_install_dir }}/templates/wnode-discorvery.ctmpl"
+source_template1: "{{ consul_template_install_dir }}/templates/lnode-discorvery.ctmpl"
+source_template2: "{{ consul_template_install_dir }}/templates/wnode-discorvery.ctmpl"
 # consul-template template block "destination"
 dest_template1: "/data/prometheus/prometheus-1.7.1.linux-amd64/conf.d/lnode-discovery.json"
 dest_template2: "/data/prometheus/prometheus-1.7.1.linux-amd64/conf.d/wnode-discovery.json"
 # The command after dest template changed.
-commands1 = ""
-commands2 = ""
+commands1: ""
+commands2: ""
