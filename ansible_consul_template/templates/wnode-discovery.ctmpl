@@ -1,0 +1,16 @@
+[
+{{ range tree "prometheus/linux" }}
+  {
+    "targets": ["{{ .Key }}"],
+    "labels": {
+      "hostname": "{{ .Value }}"
+     }
+},
+{{ end }}
+{
+    "targets": ["10.128.115.6:9182"],
+    "labels": {
+      "hostname": "POD22-TBJ"
+     }
+}
+]

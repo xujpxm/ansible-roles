@@ -1,0 +1,82 @@
+---
+
+- name: Create Consul template Dir
+  file:
+    path: "{{ consul_template_install_dir }}"
+    state: directory
+    mode: 0755
+
+- name: Create Consul Template templates Dir
+  file:
+    path: "{{ consul_template_install_dir }}/templates"
+    state: directory
+    mode: 0755
+# download package form internet
+- name: Download consul-template Package
+  get_url:
+    url: "{{ consul_template_download_url }}"
+    dest: "{{ consul_template_install_dir }}"
+    checksum: sha256:"{{ consul_template_sha256sum }}"
+
+# You can use local consul package by uncomment this task
+#- name: Upload Consul Package from local disk
+#  copy:
+#    src: consul_{{ consul_version }}_linux_amd64.zip
+#    dest: "{{ consul_install_dir }}"
+- name: Install unzip package befor unarchive Consul Package
+  apt:
+    name: unzip
+    state: present
+    update_cache: yes
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+
+- name: Install unzip package befor unarchive Consul Package
+  yum:
+    name: unzip
+    state: present
+    update_cache: yes
+  when: ansible_distribution == 'CentOS'
+
+- name: Unarchive consul-template Pacakge
+  unarchive:
+    src: "{{ consul_template_install_dir }}/consul-template_{{ consul_version }}_linux_amd64.zip"
+    dest: "{{ consul_template_install_dir }}"
+    remote_src: true
+
+- name: Create consul-template config file
+  template:
+    src: consul-template.conf
+    dest: "{{ consul_template_install_dir }}"
+    owner: root
+    mode: 0644
+
+- name: Create consul-template templates file1
+  template:
+    src: wnode-discovery.ctmpl
+    dest: "{{ consul_template_install_dir }}/templates"
+    owner: root
+    mode: 0644
+
+- name: Create consul-template templates file2
+  template:
+    src: lnode-discovery.ctmpl
+    dest: "{{ consul_template_install_dir }}/templates"
+    owner: root
+    mode: 0644
+
+- name: Create Supervisor Conf For Consul
+  template:
+    src: consul_supervisor.conf
+    dest: /etc/supervisor/conf.d/
+    owner: root
+    mode: 0644
+
+- name: Supervisor reread for consul agent
+  supervisorctl:
+    name: consul
+    state: present
+
+- name: Supervisor update and restart consul agent
+  supervisorctl:
+    name: consul
+    state: restarted

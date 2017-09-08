@@ -1,0 +1,4 @@
+---
+
+- name: Consul-template install
+  include: consul_template_install.yml
