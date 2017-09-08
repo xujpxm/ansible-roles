@@ -6,6 +6,7 @@ Ansible roles playbooks.
 - ansible_prometheus: prometheus server && node_exporter && alertmanager installation
 - ansible_supervisord: supervisord monitor installation.
 - ansible_consul_cluster: Consul Cluster Setup controled by supervisord
+- ansible_consul_template: consul-template install roles monitored by supervisord
 ### How To Use
 Include your ansible role you wanted in your yaml file. E.g.: test.yml
 ### License
