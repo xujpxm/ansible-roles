@@ -15,7 +15,7 @@
 - name: register file stat
   stat:
     path: "{{ consul_template_install_dir }}/consul-template_{{ consul_template_version }}_linux_amd64.zip"
-    checksum: sha256:"{{ consu_template_sha256sum }}"
+    checksum: sha256:"{{ consul_template_sha256sum }}"
   register: file_stat
 
 # download package form internet
@@ -24,7 +24,7 @@
     url: "{{ consul_template_download_url }}"
     dest: "{{ consul_template_install_dir }}"
     checksum: sha256:"{{ consul_template_sha256sum }}"
-  when: file_stat.stat.exists == True
+  when: file_stat.stat.exists == False
 
 # You can use local consul package by uncomment this task
 #- name: Upload Consul Package from local disk
