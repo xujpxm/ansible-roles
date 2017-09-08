@@ -15,7 +15,7 @@
 - name: register file stat
   stat:
     path: "{{ consul_template_install_dir }}/consul-template_{{ consul_template_version }}_linux_amd64.zip"
-    checksum: sha256:"{{ consul_template_sha256sum }}"
+    checksum: sha256
   register: file_stat
 
 # download package form internet

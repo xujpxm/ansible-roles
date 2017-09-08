@@ -16,5 +16,5 @@ source_template2: "{{ consul_template_install_dir }}/templates/wnode-discorvery.
 dest_template1: "/data/prometheus/prometheus-1.7.1.linux-amd64/conf.d/lnode-discovery.json"
 dest_template2: "/data/prometheus/prometheus-1.7.1.linux-amd64/conf.d/wnode-discovery.json"
 # The command after dest template changed.
-commands1: ""
-commands2: ""
+command1: ""
+command2: ""
