@@ -5,7 +5,7 @@ consul_template_version: 0.19.2
 # consul-template zip package download url
 consul_template_download_url: https://releases.hashicorp.com/consul-template/{{ consul_template_version }}/consul-template_{{ consul_template_version }}_linux_amd64.zip
 consul_template_install_dir: /data/consul_template
-consul_sha256sum: c4bf073081a99030f45a446a11b8e9f8a4b56270b096d90b51e48f6e4416ffcc
+consul_template_sha256sum: c4bf073081a99030f45a446a11b8e9f8a4b56270b096d90b51e48f6e4416ffcc
 # The address of consul agent
 consul_agent_address: "172.30.100.45:8500"
 # consul-template template block "source"
