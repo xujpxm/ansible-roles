@@ -11,3 +11,10 @@
     name: supervisor
     state: present
   when: ansible_os_family == 'RedHat'
+
+- name: Running supervisord
+  systemd:
+    name: supervisord
+    state: started
+    enabled: yes
+  when: ansible_os_family == 'RedHat'
