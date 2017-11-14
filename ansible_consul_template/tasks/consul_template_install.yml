@@ -31,14 +31,14 @@
 #  copy:
 #    src: consul_{{ consul_version }}_linux_amd64.zip
 #    dest: "{{ consul_install_dir }}"
-- name: Install unzip package befor unarchive Consul Package
+- name: Install unzip package befor unarchive Consul Package On Debian OS Family
   apt:
     name: unzip
     state: present
     update_cache: yes
   when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
 
-- name: Install unzip package befor unarchive Consul Package
+- name: Install unzip package befor unarchive Consul Package On Redhat OS Family
   yum:
     name: unzip
     state: present
