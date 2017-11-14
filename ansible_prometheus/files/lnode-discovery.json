@@ -1,0 +1,10 @@
+[
+    {
+        "targets": [
+            "192.168.1.94:9100"
+        ],
+        "labels": {
+            "hostname": "example-host"
+        }
+    }
+]
