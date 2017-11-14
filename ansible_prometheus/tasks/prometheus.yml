@@ -52,12 +52,11 @@
     mode: 0644
   when: ansible_os_family == 'RedHat'
 
-- name: copy alert.rules
+- name: Create alert rule file:'alert.yml'
   copy:
     src: alert.rules
     dest: "{{ prometheus_server_path }}"
     mode: 0644
-
 
 - name: supervisor reread prometheus
   supervisorctl:
