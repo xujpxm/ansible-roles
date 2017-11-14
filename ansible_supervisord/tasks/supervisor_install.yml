@@ -5,3 +5,9 @@
     name: supervisor
     state: present
   when: ansible_os_family == 'Debian'
+
+- name: Install supervisor on RedHat/CentOS
+  yum:
+    name: supervisor
+    state: present
+  when: ansible_os_family == 'RedHat'
