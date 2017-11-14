@@ -1,48 +1,44 @@
-# my global config
 global:
-  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
-  # scrape_timeout is set to the global default (10s).
-
-  # Attach these labels to any time series or alerts when communicating with
-  # external systems (federation, remote storage, Alertmanager).
+  scrape_interval: 15s
   external_labels:
-      monitor: 'prometheus-monitor-pro'
-
+    monitor: prometheus-monitor-pro
 alerting:
   alertmanagers:
-  - scheme: http
-    static_configs:
-      - targets:
-        - '172.30.100.45:9093'
-
-# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+    - scheme: http
+      static_configs:
+        - targets:
+            - '{{ alertmanager_url }}''
 rule_files:
   - '{{ prometheus_server_path }}/alert.rules'
-  # - "first.rules"
-  # - "second.rules"
-
-# A scrape configuration containing exactly one endpoint to scrape:
-# Here it's Prometheus itself.
 scrape_configs:
-  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-  - job_name: 'prometheus'
-
-    # metrics_path defaults to '/metrics'
-    # scheme defaults to 'http'.
-
-    static_configs:
-      - targets: ['localhost:9090']
-
-  - job_name: 'node-exporter'
+  - job_name: prometheus
     static_configs:
       - targets:
-        - '10.128.114.1:9100'
-        - '10.128.114.2:9100'
-        - '10.128.114.3:9100'
-        - '10.128.114.4:9100'
-        - '10.128.114.5:9100'
-        - '10.128.114.6:9100'
-        - '10.128.114.7:9100'
-        - '10.128.114.8:9100'
-        - '10.128.114.9:9100'
-        - '10.128.114.10:9100'
+          - 'localhost:9090'
+  - job_name: node-exporter
+    static_configs:
+      - targets: ['10.16.1.1:9100']
+        labels:
+          hostname: 'HostTest'
+
+#  - job_name: 'node-discovery'
+#    consul_sd_configs:
+#      - server: '172.30.100.45:8500'
+#        services: ['node_exporter']
+#    relabel_configs:
+#    - source_labels: ['__meta_consul_service_id']
+#      #regex: '(.*)'
+#      target_label: 'hostname'
+#      #replacement: '$1'
+
+  - job_name: 'lnode-discorvery'
+    file_sd_configs:
+      - files:
+        - '{{ prometheus_server_path }}/conf.d/lnode-discovery.json'
+
+  - job_name: 'service-discorvery'
+    scrape_interval: 60s
+    scrape_timeout: 30s
+    file_sd_configs:
+      - files:
+        - '{{ prometheus_server_path }}/conf.d/service-discovery.json'
