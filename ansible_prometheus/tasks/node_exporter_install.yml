@@ -6,40 +6,48 @@
     mode: 0755
     state: directory
 
-#- name: download node_exporter into install path
-#  get_url:
-#    url: "{{ node_exporter_download_url }}"
-#    dest: "{{ prometheus_install_path }}"
-#    checksum: sha256:d5980bf5d0dc7214741b65d3771f08e6f8311c86531ae21c6ffec1d643549b2e
+- name: download node_exporter into install path
+  get_url:
+    url: "{{ node_exporter_download_url }}"
+    dest: "{{ prometheus_install_path }}"
+    checksum: sha256:{{ node_exporter_checksum }}
 
 # If you env can't out of internet use copy module, otherwise use the above task.
-- name: copy node_exporter package into your install path
-  copy:
-    src: node_exporter-0.14.0.linux-amd64.tar.gz
-    dest: "{{ prometheus_install_path }}"
+#- name: copy node_exporter package into your install path
+#  copy:
+#    src: node_exporter-0.14.0.linux-amd64.tar.gz
+#    dest: "{{ prometheus_install_path }}"
 
 - name: unzip node_exporter package
   shell: cd "{{ prometheus_install_path }}" && tar -zxf "node_exporter-{{ prometheus_node_exporter_version }}.linux-amd64.tar.gz"
 
-- name: copy node_exporter conf file to supervisord
+- name: copy node_exporter conf file to supervisord On 'Debian' Family
   template:
     src: node_exporter_supervisor.conf
     dest: /etc/supervisor/conf.d/
     owner: root
     mode: 0644
+  when: ansible_os_family == 'Debian'
 
-# When state = present, the module will call supervisorctl reread then supervisorctl add if the program/group does not exist.
-# When state = restarted, the module will call supervisorctl update then call supervisorctl restart.
+- name: copy node_exporter conf file to supervisord On 'CentOS' family
+  template:
+    src: node_exporter_supervisor.conf
+    dest: /etc/supervisord.d/
+    owner: root
+    mode: 0644
+  when: ansible_os_family == 'RedHat'
 
 - name: supervisor reread node_exporter
   supervisorctl:
     name: node_exporter
     state: present
+# When state = present, the module will call supervisorctl reread then supervisorctl add if the program/group does not exist.
 
 - name: supervisor update and restart node_exporter
   supervisorctl:
     name: node_exporter
     state: restarted
+# When state = restarted, the module will call supervisorctl update then call supervisorctl restart.
 
 - name: delete node_exporter package
   file:

@@ -10,7 +10,7 @@
   get_url:
     url: "{{ alertmanager_download_url }}"
     dest: "{{ prometheus_install_path }}"
-    checksum: sha256:b569ae0d31e5df59391124578bcf9b28316cf12adb4cc9d10f439fc3ab3422f1
+    checksum: sha256:{{ alermanager_checksum }}
 
 ## If you env can't out of internet use copy module, otherwise use the above task.
 #- name: copy alertmanager package into your install path
@@ -28,25 +28,34 @@
     mode: 0644
     owner: root
 
-- name: copy supervisor alertmanager conf file
+- name: copy supervisor alertmanager conf file On 'Debian' Family
   template:
     src: alertmanager_supervisor.conf
     dest: /etc/supervisor/conf.d/
     owner: root
     mode: 0644
+  when: ansible_os_family == 'Debian'
 
-# When state = present, the module will call supervisorctl reread then supervisorctl add if the program/group does not exist.
-# When state = restarted, the module will call supervisorctl update then call supervisorctl restart.
+- name: copy supervisor alertmanager conf file On 'RedHat' Family
+  template:
+    src: alertmanager_supervisor.conf
+    dest: /etc/supervisor/conf.d/
+    owner: root
+    mode: 0644
+  when: ansible_os_family == 'RedHat'
+
 
 - name: supervisor reread alertmanager
   supervisorctl:
     name: alertmanager
     state: present
+# When state = present, the module will call supervisorctl reread then supervisorctl add if the program/group does not exist.
 
 - name: supervisor update and restart alertmanager
   supervisorctl:
     name: alertmanager
     state: restarted
+# When state = restarted, the module will call supervisorctl update then call supervisorctl restart.
 
 - name: delete alertmanager package
   file:

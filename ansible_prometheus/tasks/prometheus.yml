@@ -10,7 +10,10 @@
   get_url:
     url: "{{ prometheus_download_url }}"
     dest: "{{ prometheus_install_path }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
-    checksum: sha256:4779d5cf08c50ed368a57b102ab3895e5e830d6b355ca4bfecf718a034a164e0
+    # version 1.7.1 sha256 checksum
+    #checksum: sha256:4779d5cf08c50ed368a57b102ab3895e5e830d6b355ca4bfecf718a034a164e0
+    # version 2.0.0 sha256 checksum
+    checksum: sha256:{{ prometheus_checksum }}
 
 # If you env can't out of internet use copy module, otherwise use the above task.
 #- name: copy node_exporter package into your install path
@@ -27,12 +30,21 @@
     dest: "{{ prometheus_server_path }}"
     mode: 0664
 
-- name: copy supervisord prometheus conf file
+- name: copy supervisord prometheus conf file On Debian Family
   template:
     src: prometheus_supervisor.conf
     dest: /etc/supervisor/conf.d/
     owner: root
     mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: copy supervisord prometheus conf file On RedHat Family
+  template:
+    src: prometheus_supervisor.conf
+    dest: /etc/supervisord.d/
+    owner: root
+    mode: 0644
+  when: ansible_os_family == 'RedHat'
 
 - name: copy alert.rules
   copy:
@@ -40,18 +52,18 @@
     dest: "{{ prometheus_server_path }}"
     mode: 0644
 
-# When state = present, the module will call supervisorctl reread then supervisorctl add if the program/group does not exist.
-# When state = restarted, the module will call supervisorctl update then call supervisorctl restart.
 
 - name: supervisor reread prometheus
   supervisorctl:
     name: prometheus
     state: present
+# When state = present, the module will call supervisorctl reread then supervisorctl add if the program/group does not exist.
 
 - name: supervisor update and restart prometheus
   supervisorctl:
     name: prometheus
     state: restarted
+# When state = restarted, the module will call supervisorctl update then call supervisorctl restart.
 
 - name: delete prometheus package
   file:
