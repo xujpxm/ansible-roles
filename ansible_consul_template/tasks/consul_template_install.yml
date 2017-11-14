@@ -72,12 +72,21 @@
     owner: root
     mode: 0644
 
-- name: Create Supervisor Conf For consul-template
+- name: Create Supervisor Conf For consul-template On Debian OS family
   template:
     src: consul-template_supervisor.conf
     dest: /etc/supervisor/conf.d/
     owner: root
     mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Create Supervisor Conf For consul-template On RedHat OS family
+  template:
+    src: consul-template_supervisor.conf
+    dest: /etc/supervisord.d/consul-template_supervisor.ini
+    owner: root
+    mode: 0644
+  when: ansible_os_family == 'RedHat'
 
 - name: Supervisor reread for consul-template agent
   supervisorctl:
