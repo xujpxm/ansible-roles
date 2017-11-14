@@ -7,7 +7,7 @@ alerting:
     - scheme: http
       static_configs:
         - targets:
-            - '{{ alertmanager_url }}''
+            - '{{ alertmanager_url }}'
 rule_files:
   - '{{ prometheus_server_path }}/alert.rules'
 scrape_configs:
