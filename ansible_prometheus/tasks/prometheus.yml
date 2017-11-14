@@ -41,7 +41,7 @@
 - name: copy supervisord prometheus conf file On RedHat Family
   template:
     src: prometheus_supervisor.conf
-    dest: /etc/supervisord.d/
+    dest: /etc/supervisord.d/prometheus_supervisor.ini
     owner: root
     mode: 0644
   when: ansible_os_family == 'RedHat'

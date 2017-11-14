@@ -32,7 +32,7 @@
 - name: copy node_exporter conf file to supervisord On 'CentOS' family
   template:
     src: node_exporter_supervisor.conf
-    dest: /etc/supervisord.d/
+    dest: /etc/supervisord.d/node_exporter_supervisor.ini
     owner: root
     mode: 0644
   when: ansible_os_family == 'RedHat'
