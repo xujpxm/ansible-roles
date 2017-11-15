@@ -1,13 +1,17 @@
 ---
 # change your consul version you wanted install.
-consul_version: 0.9.2
+#consul_version: 0.9.2
+consul_version: 1.0.0
 # for linux platform and AMD 64
 consul_download_url: https://releases.hashicorp.com/consul/{{ consul_version }}/consul_{{ consul_version }}_linux_amd64.zip
 consul_install_dir: /data/consul
-consul_sha256sum: 0a2921fc7ca7e4702ef659996476310879e50aeeecb5a205adfdbe7bd8524013
+# sha256 for 0.9.0
+#consul_sha256sum: 0a2921fc7ca7e4702ef659996476310879e50aeeecb5a205adfdbe7bd8524013
+# for version 1.0.0
+consul_sha256sum: 585782e1fb25a2096e1776e2da206866b1d9e1f10b71317e682e03125f22f479
 
 # consul start args
 # datacenter name
-consul_datacenter_name: "ops-cn"
+consul_datacenter_name: "ops-passport"
 # consul agent join address to join a cluster
-consul_join_addr: "172.30.100.82"
+consul_join_addr: "10.16.165.198"
