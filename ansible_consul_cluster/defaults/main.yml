@@ -14,4 +14,4 @@ consul_sha256sum: 585782e1fb25a2096e1776e2da206866b1d9e1f10b71317e682e03125f22f4
 # datacenter name
 consul_datacenter_name: "ops-passport"
 # consul agent join address to join a cluster
-consul_join_addr: "10.16.165.198"
+consul_join_addr: "192.168.1.1"
