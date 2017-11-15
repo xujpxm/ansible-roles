@@ -10,7 +10,7 @@
   get_url:
     url: "{{ alertmanager_download_url }}"
     dest: "{{ prometheus_install_path }}"
-    checksum: sha256:{{ alermanager_checksum }}
+    checksum: sha256:{{ alertmanager_checksum }}
 
 ## If you env can't out of internet use copy module, otherwise use the above task.
 #- name: copy alertmanager package into your install path
@@ -39,7 +39,7 @@
 - name: copy supervisor alertmanager conf file On 'RedHat' Family
   template:
     src: alertmanager_supervisor.conf
-    dest: /etc/supervisor/conf.d/alertmanager_supervisor.ini
+    dest: /etc/supervisord.d/alertmanager_supervisor.ini
     owner: root
     mode: 0644
   when: ansible_os_family == 'RedHat'
