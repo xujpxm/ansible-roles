@@ -22,11 +22,11 @@
 #    dest: "{{ prometheus_install_path }}"
 
 - name: unzip prometheus tar.gz package
-  shell: cd "{{ prometheus_install_path }}" && tar -zxf "prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
+  shell: "cd {{ prometheus_install_path }} && tar -zxf prometheus-{{ prometheus_version }}.linux-amd64.tar.gz -C {{ prometheus_server_path }}"
 
 - name: Create prometheus conf.d directory
   file:
-    path: {{ prometheus_install_path }}/prometheus-{{ prometheus_version }}.linux-amd64/conf.d
+    path: "{{ prometheus_server_path }}/conf.d"
     mode: 0755
     state: directory
 

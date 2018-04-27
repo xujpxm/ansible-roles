@@ -19,7 +19,7 @@
 #    dest: "{{ prometheus_install_path }}"
 
 - name: unzip alertmanager package
-  shell: cd "{{ prometheus_install_path }}" && tar -zxf "alertmanager-{{ prometheus_alertmanager_version }}.linux-amd64.tar.gz"
+  shell: cd "{{ prometheus_install_path }}" && tar -zxf "alertmanager-{{ prometheus_alertmanager_version }}.linux-amd64.tar.gz -C {{ alertmanager_path }}"
 
 - name: copy alermanager config file
   template:

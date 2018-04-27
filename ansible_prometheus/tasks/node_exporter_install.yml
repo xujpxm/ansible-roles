@@ -19,7 +19,7 @@
 #    dest: "{{ prometheus_install_path }}"
 
 - name: unzip node_exporter package
-  shell: cd "{{ prometheus_install_path }}" && tar -zxf "node_exporter-{{ prometheus_node_exporter_version }}.linux-amd64.tar.gz"
+  shell: "cd {{ prometheus_install_path }} && tar -zxf node_exporter-{{ prometheus_node_exporter_version }}.linux-amd64.tar.gz -C {{ node_exporter_path }}"
 
 - name: copy node_exporter conf file to supervisord On 'Debian' Family
   template:
