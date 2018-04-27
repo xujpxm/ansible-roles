@@ -1,3 +1,20 @@
 ---
 
-- include: supervisor_install.yml
+- name: Install supervisor on Debian/Ubuntu
+  apt:
+    name: supervisor
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Install supervisor on RedHat/CentOS
+  yum:
+    name: supervisor
+    state: present
+  when: ansible_os_family == 'RedHat'
+
+- name: Running supervisord
+  systemd:
+    name: supervisord
+    state: started
+    enabled: yes
+  when: ansible_os_family == 'RedHat'
