@@ -1,7 +1,10 @@
 global:
   scrape_interval: 15s
+  scrape_timeout: 15s
+  # How frequently to evaluate rules. default = 1m
+  evaluation_interval: 1m
   external_labels:
-    monitor: prometheus-monitor-pro
+    monitor: ops-monitor01
 alerting:
   alertmanagers:
     - scheme: http

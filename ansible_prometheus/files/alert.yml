@@ -7,31 +7,29 @@ groups:
       labels:
         severity: critital
       annotations:
-        summary: "Instance {{ $labels.instance }} down"
-        description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 1 minutes."
-
+        summary: "监控实例:{{ $labels.instance }} 状态DOWN!"
+        description: "监控Job组{{ $labels.job }}里的监控实例{{ $labels.instance }}状态变为DOWN!,请检查实例状态或者网络情况"
     - alert: MemoryAvaliableLow
-      expr: ((node_memory_MemFree + node_memory_Buffers + node_memory_Cached) / node_memory_MemTotal) <= 0.16
-      for: 5m
-      labels:
-        severity: warning
-      annotations:
-        summary: "Server {{ $labels.hostname }} Memory Avaliable is dangerously low"
-        description: "This Instance {{ $labels.instance }} Memory Avaliable is under the thread with a value of {{ $value }}."
-
-    - alert: CPUsageHigh
-      expr: (1 - avg by (hostname) (irate(node_cpu{mode="idle"}[3m]))) > 0.84
-      for: 5m
-      labels:
-        severity: warning
-      annotations:
-        summary: "Server {{ $labels.hostname }} CPU Usage is dangerously high"
-        description: "This Instance {{ $labels.instance }} CPU Usage has exceeded the threshold with a value of {{ $value }}."
-    - alert: DiskUsageHigh
-      expr: ((node_filesystem_size - node_filesystem_avail) / node_filesystem_size) >= 0.86
+      expr: ((node_memory_MemFree + node_memory_Buffers + node_memory_Cached) / node_memory_MemTotal) <= 0.1
       for: 3m
       labels:
         severity: warning
       annotations:
-        summary: "Server {{ $labels.hostname }} Disk device {{ $labels.device }} Usage is dangerously high"
-        description: "This Instance {{ $labels.instance }} Disk Usage has exceeded the threshold with a value of {{ $value }}"
+        summary: "Linux主机:{{ $labels.service_name }} 可用内存不足!"
+        description: "Instance实例{{ $labels.instance }},机器可用内存3min内持续小于警戒线阀值,当前可用比率为:{{ $value }}."
+    - alert: CPUsageHigh
+      expr: (1 - avg by (hostname) (irate(node_cpu{mode="idle"}[3m]))) > 0.85
+      for: 3m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Linux主机:{{ $labels.service_name }} CPU使用率过高!"
+        description: "Instance实例{{ $labels.instance }},机器CPU使用率3min内持续高于警戒线阀值,当前使用比率为:{{ $value }}."
+    - alert: DiskUsageHigh
+      expr: ((node_filesystem_size - node_filesystem_avail) / node_filesystem_size) >= 0.9
+      for: 3m
+      labels:
+        severity: warning
+      annotations:
+        summary: "主机{{ $labels.service_name }}磁盘空间不足!"
+        description: "主机实例{{ $labels.instance }},磁盘{{ $labels.device }}挂载点:{{ $labels.mountpoint }}可用空间不足,当前使用比率为:{{ $value }}"

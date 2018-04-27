@@ -4,20 +4,20 @@ prometheus_install_path: /data/prometheus
 #prometheus_version: 1.7.1
 #prometheus_node_exporter_version: 0.14.0
 #prometheus_alertmanager_version: 0.8.0
-prometheus_version: 2.0.0
-prometheus_node_exporter_version: 0.15.1
-prometheus_alertmanager_version: 0.10.0
+prometheus_version: 2.2.1
+prometheus_node_exporter_version: 0.16.0-rc.2
+prometheus_alertmanager_version: 0.15.0-rc.1
 
 node_exporter_download_url: https://github.com/prometheus/node_exporter/releases/download/v{{ prometheus_node_exporter_version }}/node_exporter-{{ prometheus_node_exporter_version }}.linux-amd64.tar.gz
-node_exporter_checksum: 7ffb3773abb71dd2b2119c5f6a7a0dbca0cff34b24b2ced9e01d9897df61a127
+node_exporter_checksum: 3f59750277ba214c7d8bc5786b126be325ef07aeffffe0af69babfbead0c5a60
 
 prometheus_download_url: https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz
-prometheus_checksum: e12917b25b32980daee0e9cf879d9ec197e2893924bd1574604eb0f550034d46
+prometheus_checksum: ec1798dbda1636f49d709c3931078dc17eafef76c480b67751aa09828396cf31
 
 alertmanager_download_url: https://github.com/prometheus/alertmanager/releases/download/v{{ prometheus_alertmanager_version }}/alertmanager-{{ prometheus_alertmanager_version }}.linux-amd64.tar.gz
-alertmanager_checksum: ef09b9c9795a7148fd74bb1dcecdd00a4fa25da05a4d2b8517e6ceb5f124e1a8
+alertmanager_checksum: d9fd2255644bf9f9a6627c6126b8aadcc747c9bed64f5f55f0c6676496d577b3
 
-node_exporter_path: "{{ prometheus_install_path }}/node_exporter-{{ prometheus_node_exporter_version }}.linux-amd64"
-prometheus_server_path: "{{ prometheus_install_path }}/prometheus-{{ prometheus_version }}.linux-amd64"
-alertmanager_path: "{{ prometheus_install_path }}/alertmanager-{{ prometheus_alertmanager_version }}.linux-amd64"
-alertmanager_url: 10.16.165.196:9093
+node_exporter_path: "{{ prometheus_install_path }}/node_exporter"
+prometheus_server_path: "{{ prometheus_install_path }}/prometheus"
+alertmanager_path: "{{ prometheus_install_path }}/alertmanager"
+alertmanager_url: 10.240.0.1:9093
